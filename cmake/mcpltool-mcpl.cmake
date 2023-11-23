@@ -15,6 +15,6 @@ endif()
 
 # Directly include mcpl in the compiled python module -- it's source _must_ be specified
 foreach(TARGET IN LISTS CXX_TARGETS)
-    target_include_directories(${TARGET} PUBLIC ${MCPL_INCLUDE_DIRS})
+    target_include_directories(${TARGET} PUBLIC "${MCPL_SOURCE_DIR}/src/mcpl")
     target_sources(${TARGET} PUBLIC "${MCPL_SOURCE_DIR}/src/mcpl/mcpl.c")
 endforeach()
