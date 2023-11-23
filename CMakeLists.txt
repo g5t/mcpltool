@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.15...3.27)
-project(nanobound_mcpl)
+project(mcpltool)
 
 #set(CMAKE_CXX_STANDARD 17)
+list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 # Warn if the user invokes CMake directly
 if (NOT SKBUILD)
@@ -27,9 +28,6 @@ if (NOT SKBUILD)
   after editing C++ files.")
 endif()
 
-find_package(MCPL REQUIRED)
-find_library(MCPL_LIB mcpl)
-
 if (SKBUILD)
     find_package(Python 3.8
             COMPONENTS REQUIRED COMPONENTS Interpreter Development.Module
@@ -45,22 +43,23 @@ else()
     )
     message(STATUS "Nanobind CMake dir: ${nanobind_DIR}")
     list(APPEND CMAKE_MODULE_PATH "${nanobind_DIR}")
-    find_package(nanobind CONFIG REQUIRED)
 endif()
 
 find_package(nanobind CONFIG REQUIRED)
 
 nanobind_add_module(
         # Name of the module
-        _mcpl_impl
+        _mcpltool_impl
         # Target the stable ABI for Python 3.12+, which reduces
         # the number of binary wheels that must be built. This
         # does nothing on older Python versions
         STABLE_ABI
 
         # Source code goes here
-        src/mcpl.cpp
+        src/mcpltool.cpp
 )
-target_link_libraries(_mcpl_impl PRIVATE ${MCPL_LIB})
 
-install(TARGETS _mcpl_impl LIBRARY DESTINATION nanobound_mcpl)
+list(APPEND CXX_TARGETS _mcpltool_impl)
+include(mcpltool-mcpl)
+
+install(TARGETS _mcpltool_impl LIBRARY DESTINATION mcpltool)

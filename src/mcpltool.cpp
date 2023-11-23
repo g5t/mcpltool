@@ -1,5 +1,4 @@
 #include <nanobind/nanobind.h>
-#include <nanobind/stl/map.h>
 #include <nanobind/stl/string.h>
 #include <nanobind/stl/vector.h>
 
@@ -8,7 +7,7 @@
 namespace nb = nanobind;
 using namespace nb::literals;
 
-NB_MODULE(_mcpl_impl, m) {
+NB_MODULE(_mcpltool_impl, m) {
   m.def("mcpl_tool", [](std::vector<std::string> options){
     char** args = new char*[options.size()];
     int i = 0;

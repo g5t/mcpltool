@@ -7,8 +7,8 @@ requires = [
 build-backend = "scikit_build_core.build"
 
 [project]
-name = "nanobound-mcpl"
-description = "Provides an interface to the C MCPL library"
+name = "mcpltool"
+description = "Provides an interface to the C MCPL library to implement mcpltool"
 readme = "README.md"
 requires-python = ">=3.8"
 authors = [
@@ -19,8 +19,13 @@ classifiers = [
 ]
 dynamic = ["version"]
 
+[project.scripts]
+mcpltool = "mcpltool.cli:mcpl_tool_cli"
+mcpltool-merge = "mcpltool.cli:merge_cli"
+mcpltool-count = "mcpltool.cli:particle_count_cli"
+
 [project.urls]
-Homepage = "https://github.com/mctools/nanobound-mcpl"
+Homepage = "https://github.com/g5t/mcpltool"
 
 [tool.setuptools_scm]
 
